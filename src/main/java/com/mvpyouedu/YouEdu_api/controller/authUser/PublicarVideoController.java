@@ -10,6 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/video")
 public class PublicarVideoController {
@@ -20,7 +25,7 @@ public class PublicarVideoController {
 
     @PostMapping("/upload")
     @Transactional
-    public ResponseEntity publicarVideo(@RequestParam("file") MultipartFile file, @RequestBody @Valid DadodParaUpload dadosUpload){
+    public ResponseEntity publicarVideo(@RequestParam("file") MultipartFile file, @RequestParam(required = false) @Valid DadodParaUpload dadosUpload){
 
 
 
@@ -28,9 +33,16 @@ public class PublicarVideoController {
 
         return ResponseEntity.ok(respostaUpload);
 
+    }
+    @GetMapping("/uploads")
+    public List<String> listarVideos(){
 
+        File folder = new File("uploads");
 
-
+        return Arrays.stream(folder.listFiles())
+                .filter(file -> file.getName().endsWith(".mp4"))
+                .map(file -> "http://localhost:8080/uploads/" + file.getName())
+                .collect(Collectors.toList());
 
     }
 

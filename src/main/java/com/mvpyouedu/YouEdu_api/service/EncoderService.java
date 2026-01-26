@@ -18,4 +18,8 @@ public class EncoderService {
     public String encoder(String senha){
         return encoder.encode(senha);
     }
+
+    public boolean matches(String senhaDigitada, String senhaBanco){
+        return encoder.matches(senhaDigitada, senhaBanco);
+    }
 }

@@ -28,15 +28,11 @@ public class LoginController {
 
 
     @PostMapping
-    @Transactional
     public ResponseEntity logar(@RequestBody @Valid DadosLogin dados) {
 
-        var usuario = usuarioRepository.findByLogin(dados.login())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+       var userLogado= service.logar(dados);
 
-        var tokenJwt = tokenService.gerarToken(usuario);
-
-        return ResponseEntity.ok(new TokenAuthenticationJwt(tokenJwt));
+        return ResponseEntity.ok((userLogado));
     }
     @PostMapping("/recuperar-senha")
     public ResponseEntity recuperarSenha(@RequestBody DadoParaRecuperarSenha dados){

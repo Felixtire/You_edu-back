@@ -23,19 +23,26 @@ public class SecurityFilter extends OncePerRequestFilter {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+
+        return path.equals("/login")
+                || path.equals("/cadastrar")
+                || path.startsWith("/login/recuperar-senha")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/uploads");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         var path = request.getRequestURI();
         var method = request.getMethod();
-
-        if (
-            (path.equals("/login") || path.equals("/cadastrar")) ||
-            (path.equals("/login/recuperar-senha") || path.equals("/login/recuperar-senha/")) &&
-            (method.equals("POST") || method.equals("OPTIONS"))
-        ) {
-            filterChain.doFilter(request,response);
-            return;
-        }
 
 
         var tokenJwt = recuperarToken(request);
