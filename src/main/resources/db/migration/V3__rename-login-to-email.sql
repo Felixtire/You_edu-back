@@ -1,0 +1,3 @@
+
+ALTER TABLE usuarios CHANGE COLUMN login email VARCHAR(100) NOT NULL UNIQUE;
+
