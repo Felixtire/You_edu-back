@@ -35,20 +35,20 @@ public class CadastroService {
 
 
     public UsuarioEntity atualizarCadastro(DadosAtualizarUsuario dados){
-        var usuario = usuarioRepository.findByLogin(dados.login())
+        var usuario = usuarioRepository.findByEmail(dados.email())
                 .orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
 
         if (dados.nome() != null) {
             usuario.setNome(dados.nome());
         }
 
-        if (dados.login() != null && !dados.login().equals(usuario.getLogin())) {
-            usuarioRepository.findByLogin(dados.login())
+        if (dados.email() != null && !dados.email().equals(usuario.getEmail())) {
+            usuarioRepository.findByEmail(dados.email())
 
                     .ifPresent(u->{
                         throw new RuntimeException("Login já está em uso");
                     });
-            usuario.setLogin(dados.login());
+            usuario.setEmail(dados.email());
         }
 
         if (dados.senha() != null) {

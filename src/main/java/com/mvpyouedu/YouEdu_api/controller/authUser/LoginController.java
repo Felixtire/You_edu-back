@@ -37,7 +37,7 @@ public class LoginController {
     @PostMapping("/recuperar-senha")
     public ResponseEntity recuperarSenha(@RequestBody DadoParaRecuperarSenha dados){
 
-        var token = service.recuperarSenha(dados.login());
+        var token = service.recuperarSenha(dados.email());
 
         return ResponseEntity.ok().body(token);
 

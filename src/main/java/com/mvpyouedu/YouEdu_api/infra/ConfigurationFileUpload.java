@@ -10,7 +10,6 @@ public class ConfigurationFileUpload  implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Qualquer requisição que começar com /uploads/ vai buscar os arquivos locais
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:///home/dev/uploads/");
     }

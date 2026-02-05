@@ -27,7 +27,7 @@ public class TokenService {
 
             return JWT.create()
                     .withIssuer("YouEdu_api")
-                    .withSubject(usuario.getLogin())
+                    .withSubject(usuario.getEmail())
                     .withExpiresAt(dataLimite())
                     .withClaim("id", usuario.getId())
                     .sign(algoritmo);

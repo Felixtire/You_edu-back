@@ -38,7 +38,7 @@ public class SecurityConfigurations {
                         .requestMatchers("/login/redefinir-senha/**").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**","/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("uploads/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .anyRequest()
                         .authenticated()
 

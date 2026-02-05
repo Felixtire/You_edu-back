@@ -1,5 +1,6 @@
 package com.mvpyouedu.YouEdu_api.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ public class UploadService implements WebMvcConfigurer {
     @Value("${upload.dir}")
     private String UPLOAD_DIR;
 
+    @Transactional
     public String uploadFile(MultipartFile file) {
 
         String caminhoArquivo;
@@ -33,6 +35,14 @@ public class UploadService implements WebMvcConfigurer {
         }
 
         return "Caminho do arquivo: " + caminhoArquivo;
+    }
+
+    public File getFile() {
+        if (UPLOAD_DIR.isEmpty()){
+            return null;
+        } else {
+            return new File(UPLOAD_DIR );
+        }
     }
 
 }

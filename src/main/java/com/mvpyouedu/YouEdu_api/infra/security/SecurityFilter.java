@@ -49,7 +49,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (tokenJwt != null) {
             var subject = tokenService.getSubject(tokenJwt);
-            var usuario = usuarioRepository.findByLogin(subject)
+            var usuario = usuarioRepository.findByEmail(subject)
                     .orElseThrow(()->new RuntimeException("Usuário não encontrado"));
 
             var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());

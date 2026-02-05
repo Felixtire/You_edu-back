@@ -24,7 +24,7 @@ public class UsuarioEntity implements UserDetails {
     private Long id;
 
     private String nome;
-    private String login;
+    private String email;
     private String senha;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +33,7 @@ public class UsuarioEntity implements UserDetails {
     public UsuarioEntity(DadosCadastroUsuario dadosCadastroUsuario) {
 
         this.nome= dadosCadastroUsuario.nome();
-        this.login = dadosCadastroUsuario.email();
+        this.email = dadosCadastroUsuario.email();
         this.senha= dadosCadastroUsuario.senha();
         this.tipo= dadosCadastroUsuario.tipo();
     }
@@ -51,7 +51,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
     @Override
     public boolean isAccountNonLocked() {

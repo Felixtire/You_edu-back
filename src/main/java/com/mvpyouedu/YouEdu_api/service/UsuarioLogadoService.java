@@ -26,7 +26,7 @@ public class UsuarioLogadoService {
 
     @Transactional
     public RespostaLoginDto logar(DadosLogin login) {
-        var usuarioOpt = repository.findByLogin(login.login());
+        var usuarioOpt = repository.findByEmail(login.email());
 
         if (usuarioOpt.isEmpty()) {
             throw new ResponseStatusException(
@@ -51,7 +51,7 @@ public class UsuarioLogadoService {
 
 
     public String recuperarSenha(String login) {
-        var usuario = repository.findByLogin(login)
+        var usuario = repository.findByEmail(login)
                 .orElseThrow(()-> new EntityNotFoundException("Usuário não encontrado"));
 
         var idUsuario = usuario.getId();

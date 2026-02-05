@@ -1,4 +1,4 @@
 package com.mvpyouedu.YouEdu_api.domain.dto;
 
-public record DadosLogin(String login, String senha) {
+public record DadosLogin(String email, String senha) {
 }
